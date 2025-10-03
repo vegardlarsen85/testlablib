@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="87132cf2-7e3e-43e8-a30d-435dbb67b3dd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../nesset/glamox/generate_alarms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wartsila/.idea/wartsila.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/com/OPCUA_Test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/CurrentConfig/plc1.tpzip" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/CurrentConfig/plc1.tpzip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig.tszip" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig.tszip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig/plc1.tpzip" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/CurrentConfig/plc1.tpzip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.app" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.cid" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.cid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.crc" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.crc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.tmc" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851.tmc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851_boot.tizip" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/_Boot/TwinCAT OS (x64)/Plc/Port_851_boot.tizip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/FBs/FB_Alarm.TcPOU" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/FBs/FB_Alarm.TcPOU" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P02_IO.TcPOU" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P02_IO.TcPOU" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P04_ControlLogic.TcPOU" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P04_ControlLogic.TcPOU" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P05_AlarmHandling.TcPOU" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/POUs/P05_AlarmHandling.TcPOU" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/plc1.plcproj" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/plc1.plcproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/plc1.tmc" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plc1/plc1.tmc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plcs.tsproj" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/HelloWorld/plcs.tsproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/SimpleProcess.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/SimpleProcess.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1.tcopcuasrv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Alarms and Conditions/Alarms and Conditions.ac" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Data Access/Data Access.opcuada" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Data Access/PLC1.uadevtype" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Event Logger/Event Logger.opcuael" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Historical Access/Historical Access.opcuaha" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Resources/Resources.res" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/TwinCAT OPC UA Server Project1/Security Access/Security Access.sec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/com/com.tcconnproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/AlarmList.content" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/AlarmList.content" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/testlablib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/testlablib.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="33Xt2P1JMEmXobLvqQrn9MpQFdc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.absorber.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/veglar129/Source/Repos/testlablib"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-1bde30d8e611-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.130" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="87132cf2-7e3e-43e8-a30d-435dbb67b3dd" name="Changes" comment="" />
+      <created>1759475037240</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759475037240</updated>
+    </task>
+    <servers />
+  </component>
+</project>

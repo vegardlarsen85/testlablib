@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../nesset/.idea/AlfredNesset.iml" filepath="$PROJECT_DIR$/../nesset/.idea/AlfredNesset.iml" />
       <module fileurl="file://$PROJECT_DIR$/../nesset/.idea/nesset.iml" filepath="$PROJECT_DIR$/../nesset/.idea/nesset.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/testlablib.iml" filepath="$PROJECT_DIR$/.idea/testlablib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wartsila/.idea/wartsila.iml" filepath="$PROJECT_DIR$/../wartsila/.idea/wartsila.iml" />
     </modules>
   </component>
 </project>
