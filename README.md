@@ -1,7 +1,2 @@
-Python Library for Simulation of Industrial Processes.
+Python Library for Calculating Chemical Equilibrium and Simulate Reactors
 
-**Innstallation**
-pip install testlablib
-
-**Documentation**
-testlablib.com
