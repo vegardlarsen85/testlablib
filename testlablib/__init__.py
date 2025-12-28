@@ -1,5 +1,5 @@
 # Standard
-from main import *
+from .main import *
 
 # Local
 #from Repos.testlablib.main import *
