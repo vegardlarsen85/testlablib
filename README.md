@@ -147,7 +147,7 @@ def activity_coefficient(LiquidStream, id):
 
 sol.load_heat_capacity_kJ_kgK(function=heat_capacity_kJ_kgK)
 sol.load_density_kg_m3(function=density_kg_m3)
-sol.load_activity_coefficient(function=activity)
+sol.load_activity_coefficient(function=activity_coefficient)
 ```
 
 ---
