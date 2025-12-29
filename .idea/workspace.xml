@@ -39,7 +39,6 @@
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testlablib_com/user_guide/GasStream.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testlablib_com/user_guide/GasStream.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testlablib_com/web_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testlablib_com/web_page.py" afterDir="false" />
