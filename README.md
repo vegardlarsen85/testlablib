@@ -62,7 +62,7 @@ pip install git+https://github.com/vegardlarsen85/testlablib.git
 | *Molar Mass of Specie i*                          | $M_i$      | $kg \cdot kmol^{-1}$               |
 | *Activity Coefficient of Specie i in Liquid*      | $\gamma_i$ | $1$                                |
 
-## 4. Formula Cheat Sheet
+## 4. Formula Cheat Sheets
 
 Concentrations in Liquid Phase.
 
@@ -81,6 +81,30 @@ Concentrations in Liquid Phase.
 | $x_i = \frac{c_i}{c}$                        | $x_i = \frac{c_i}{c}$                                                                                              |            |
 | $x_{solvent} = 1$                            | $x_{solvent}=\frac{1000}{1000+M_{solvent} \sum_i m_i}$                                                             | *i=solute* |
 | $x_{solvent} = 1$                            | $x_{solvent}=\frac{1000}{1000+M_{solvent} \sum_i m_i}$                                                             | *i=solute* |
+
+
+---
+
+
+Two Film Theory, Flux of Solutes (Henry's Law)
+
+
+| Flux                      | Mass Transfer Coefficient                                                  | Note                                                   |
+|:--------------------------|:---------------------------------------------------------------------------|:-------------------------------------------------------|
+| $J_i=K_G (p_i - p_i^*)$   | $K_G = \left( \frac{RT}{k_G} + \frac{1}{H_i} \frac{1}{E k_L} \right)^{-1}$ |                                                        |
+| $J_i=K_L (H_i p_i - c_i)$ | $K_L = \left( \frac{RTH_i}{k_G} + \frac{1}{E k_L} \right)^{-1}$            | where $c_i$ refer to liquid phase molarity of specie i |
+
+
+---
+
+Two Film Theory, Flux of Solvents (Raoult's Law)
+
+
+| Flux                                    | Mass Transfer Coefficient                                                      | Note                                               |
+|:----------------------------------------|:-------------------------------------------------------------------------------|:---------------------------------------------------|
+| $J_i=K_G (p_i - p_i^*)$                 | $K_G = \left( \frac{RT}{k_G} + \frac{p^0_i}{c_L} \frac{1}{E k_L} \right)^{-1}$ |                                                    |
+| $J_i=K_L c_L (\frac{p_i}{p_i^0} - x_i)$ | $K_L = \left( \frac{c_L}{p_i^0} \frac{RT}{k_G} + \frac{1}{E k_L} \right)^{-1}$ | where $c_L$ refer to overall liquid phase molarity |
+
 
 
 
