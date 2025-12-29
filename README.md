@@ -22,6 +22,8 @@ Some keywords are
 
 Note, The reactors (CSTR, PFR) only calculate Steady State. The library are therefore not well suited for simulating Batch Processes. In addition, the Gases are Modelled using Ideal Gas Law, and are thus only accurate at relatively low pressures. However, the plan is to update both these issues eventually.  
 
+
+
 Hope you find the library useful  
 
 Best Regards  
@@ -745,15 +747,39 @@ plt.show()
 ```
 
 ***Rate-Based Method***    
-Simulating Absorption Column using Rate-Based Method is shown in below code. We then need to specify:
-- The Liquid Holdup
-- The Pressure Drop
-- The Heat Transfer between the Gas and Liquid
-- The Mass Transfer of the Volatile Species
-- The Heat of Absorption of the Volatile Species
+Example showing simulation of Absorption Column using Rate-Based Method is shown in below code. For such a simulation we need to specify:
+- Liquid Holdup
+- Pressure Drop
+- Heat Transfer between the Gas and Liquid
+- Mass Transfer of the Volatile Species
+- Heat of Absorption of the Volatile Species
 
 
-The calculated Mass and Heat Transfer Coefficients are for illustration only, and is not in any way accurate.
+In addition, any Chemical Reactions occuring in one of the phases is automatically taken care of.  
+In this example we have two reactions occuring in liquid phase.  
+
+First we will creat an instance of the Absorber for which we will use the *Column_StructuredPacking_CounterCurrent* method.
+Note, a method for simulating Structured Packing Co-Current also exists.
+There also exist more generic classes such as *GasLiquidContactor_PFR_CounterCurrent* were it s
+possible to simulate Columns with varying Cross Sectional Area. Examples could be Venturies or Rotary Packed Beds.  
+
+The argument *num_of_heights* determine how many discrete height steps the absorber is split into.
+The library generate the differential equations from mass and energy balance and solve them
+numerically. When the flow is Co-Current solving the differential equations is relatively straight
+forward, as they can be integrated forward from a fixed initial condition. In the case of
+Counter-Current flow the problem is a TPBVP (Two Point Boundary Value Problem) which is harder to solve.
+Converging of the algorithm therefore take longer time for Counter than Co-Current Columns.  
+
+In addition, having equilibrium constraints (aka. instantanious chemical reactions) in gas and liquid phase
+complicate things. To make the calculation converge fast the matemathics used in the article below was used.
+
+*Ultra-Fast Reactive Transport Simulations When Chemical Reactions Meet Machine Learning: Chemical Equilibrium*  
+*doi.org/10.48550/arXiv.1708.04825*
+
+The result is a library that can solve the Differential Equations from Columns suprisingly fast.  
+I would dare to say that this part of the code most likely superseed Aspen's Rate Based Models by a long streth
+wich model such a system using a serie of CSTR's, while this library treat the Column as a true Plug Flow Reactor
+by solving the differential equations directly enabling much more accuracy. 
 
 
 ```python
@@ -763,8 +789,12 @@ absorber = lab.Column_StructuredPacking_CounterCurrent(height_m=5.6,
                                                        void_fraction_m3_m3=0.98,
                                                        packing_area_m2_m3=350,
                                                        corrugation_angle_degree=60)
+```
 
+Next we add functions for the Column Hydrodynamics.
+For simplicity we neglect any pressure drop in the column, and set the liquid holdup fixed to 10%.
 
+```python
 def pressure_drop_Pa_m(Column):
     return 0.0 * np.ones(shape=Column.LiquidStream.temp_K.shape)
 
@@ -772,7 +802,15 @@ def pressure_drop_Pa_m(Column):
 def liquid_holdup_m3_m3(Column):
     return 0.1 * np.ones(shape=Column.LiquidStream.temp_K.shape)
 
+absorber.add_pressure_drop_Pa_m(pressure_drop_Pa_m=pressure_drop_Pa_m)
+absorber.add_liquid_holdup_m3_m3(liquid_holdup_m3_m3=liquid_holdup_m3_m3)
+```
 
+Next we create a function defining the Heat transfer between gas and liquid.
+The driving force is not suprisingly the temperature difference between the gas and liquid,
+while the Heat Transfer Coefficient is set as a function of the flow rates and packing geometry.
+
+```python
 def Heat_Transfer_kW_m3(Column):
 
     # Features
@@ -793,6 +831,14 @@ def Heat_Transfer_kW_m3(Column):
     q = kHa * (T_gas - T_liq)
     return q
 
+absorber.add_heat_transfer_kW_m3(heat_transfer_kW_m3=Heat_Transfer_kW_m3)
+```
+
+Next we add the mass transfer rates of the volatile species. In this example NH3 and H2O.
+We also need to specify the exothermic heat of the reaction to proper simulate the temperature
+profile of the column.
+
+```python
 
 def Mass_Transfer_NH3_kJ_kmol(Column):
     T0 = Column.LiquidStream.temp_K
@@ -801,7 +847,6 @@ def Mass_Transfer_NH3_kJ_kmol(Column):
     H1 = 56 * np.exp(4100 * (1 / T1 - 1 / 298))
     q = 8.314 * (np.log(H1) - np.log(H0)) / ((1 / T1) - (1 / T0))
     return q
-
 
 def Mass_Transfer_NH3_kmol_m3s(Column):
 
@@ -828,10 +873,8 @@ def Mass_Transfer_NH3_kmol_m3s(Column):
     r = KGa * (p_NH3 - p_NH3_vap)
     return r
 
-
 def Mass_Transfer_H2O_kJ_kmol(Column):
  return 44000
-
 
 def Mass_Transfer_H2O_kmol_m3s(Column):
 
@@ -853,13 +896,6 @@ def Mass_Transfer_H2O_kmol_m3s(Column):
     KGa = 0.325 * ((m / 6000) * (0.5 / A)) ** 0.15 * (v_gas / 2.4) ** 0.54 * (Mi / 0.035) ** 0.29 * (ap / 350) ** 1.22
     r = KGa * (p_H2O - p_H2O_vap)
     return r
-
-
-absorber.add_pressure_drop_Pa_m(pressure_drop_Pa_m=pressure_drop_Pa_m)
-
-absorber.add_liquid_holdup_m3_m3(liquid_holdup_m3_m3=liquid_holdup_m3_m3)
-
-absorber.add_heat_transfer_kW_m3(heat_transfer_kW_m3=Heat_Transfer_kW_m3)
 
 absorber.add_mass_transfer_kmol_m3s(id="NH3(g) -> NH3(aq)",
                                     stoch_gas={"NH3": -1},
