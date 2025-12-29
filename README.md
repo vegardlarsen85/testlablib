@@ -39,26 +39,32 @@ pip install git+https://github.com/vegardlarsen85/testlablib.git
 
 ## 3. Abbriviations
 
-| Description                           | Symbol    | Unit                               |
-|:--------------------------------------|:----------|:-----------------------------------|
-| *Molar Flow*                          | $\dot{n}$ | $kmol \cdot h^{-1}$                |
-| *Mass Flow*                           | $\dot{m}$ | $kg \cdot h^{-1}$                  |
-| *Volume Flow*                         | $\dot{V}$ | $m^3 \cdot h^{-1}$                 |
-| *Gas Phase Molar Fraction*            | $y_i$     | $kmol \cdot kmol^{-1}$             |
-| *Liquid Phase Molar Fraction*         | $x_i$     | $kmol \cdot kmol^{-1}$             |
-| *Mass Fraction*                       | $w_i$     | $kmol \cdot kmol^{-1}$             |
-| *Molarity*                            | $c_i$     | $kmol \cdot m^{-3}$                |
-| *Molality of solute i*                | $m_i$     | $mol \cdot kg^{-1}$                |
-| *Gas Pressure*                        | $p$       | $bar(a)$                           |
-| *Temperature*                         | $T$       | $K$                                |
-| *Henry's Law Coefficient of solute i* | $H_i$     | $mol \cdot kg^{-1} \cdot bar^{-1}$ |
-
-
-
+| Description                                       | Symbol     | Unit                               |
+|:--------------------------------------------------|:-----------|:-----------------------------------|
+| *Molar Flow*                                      | $\dot{n}$  | $kmol \cdot h^{-1}$                |
+| *Mass Flow*                                       | $\dot{m}$  | $kg \cdot h^{-1}$                  |
+| *Volume Flow*                                     | $\dot{V}$  | $m^3 \cdot h^{-1}$                 |
+| *Gas Phase Molar Fraction*                        | $y_i$      | $kmol \cdot kmol^{-1}$             |
+| *Liquid Phase Molar Fraction*                     | $x_i$      | $kmol \cdot kmol^{-1}$             |
+| *Mass Fraction*                                   | $w_i$      | $kmol \cdot kmol^{-1}$             |
+| *Molarity*                                        | $c_i$      | $kmol \cdot m^{-3}$                |
+| *Molality of solute i*                            | $m_i$      | $mol \cdot kg^{-1}$                |
+| *Gas Pressure*                                    | $p$        | $bar(a)$                           |
+| *Gas Partial Pressure of Specie i*                | $p_i$      | $bar(a)$                           |
+| *Vapor Pressure of Specie i*                      | $p_i^*$    | $bar(a)$                           |
+| *Vapor Pressure over a pure solution of Specie i* | $p_i^0$    | $bar(a)$                           |
+| *Temperature*                                     | $T$        | $K$                                |
+| *Henry's Law Coefficient of solute i*             | $H_i$      | $mol \cdot kg^{-1} \cdot bar^{-1}$ |
+| *Density*                                         | $\rho$     | $kg \cdot m^{-3}$                  |
+| *Heat Capacity of Gas*                            | $c_p$      | $kJ\cdot kmol^{-1} \cdot K^{-1}$   |
+| *Heat Capacity of Gas Specie i*                   | $c_{p,i}$  | $kJ\cdot kmol^{-1} \cdot K^{-1}$   |
+| *Heat Capacity of Liquid*                         | $c_p$      | $kJ\cdot kg^{-1} \cdot K^{-1}$     |
+| *Molar Mass of Specie i*                          | $M_i$      | $kg \cdot kmol^{-1}$               |
+| *Activity Coefficient of Specie i in Liquid*      | $\gamma_i$ | $1$                                |
 
 ## 4. Formula Cheat Sheet
 
-A useful Formula Cheat Sheet for Concentrations in Liquid Phase are Shown in Below Table.
+Concentrations in Liquid Phase.
 
 | Dilute Aqueous Solution                      | Arbitrary Solution                                                                                                 | Note       |
 |:---------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|:-----------|
@@ -496,11 +502,23 @@ plt.show()
 
 ### 5.3 Gas Liquid Contactors
 
-To avoid having to re-configure the LiquidStream and GasStream Objects every time one need another instance it is possible to make an
-inherence from the LiquidStream and GasStream Class the normal Python-way as shown below.
+To get started with Gas-Liquid-Contactors consider an example of Air Contaminated with NH3, and to remove the NH3 from the Air it is directed through a Packed Column containing Acidic Water.
+The Air and Acidic water is flowing Counter-Current.  
 
-To get started with Gas-Liquid-Contactors Consider an example of Air Contaminated with NH3.  
-To remove the NH3 from the GasStream the Air is directed through a Column containing Acidic Water.  
+We have the following reactions;  
+
+Gas-Liquid Phase  
+$H_2O(g) \rightleftarrows H_2O(l)$  
+$NH_3(g) \rightleftarrows NH_3(aq)$  
+
+Liquid Phase  
+$NH_4^+ \rightleftarrows NH_3 + H^+$  
+$H_2O \rightleftarrows OH^- + H^+$    
+
+
+To avoid having to re-configure the LiquidStream and GasStream Objects every time one need another instance they can be
+wrapped inside a Class as shown below. 
+
 
 
 ```python
@@ -662,11 +680,14 @@ class MySolvent(lab.LiquidStream):
         return p
 ```
 
+There are two ways to simulate a Packed Column
+1) Equilibrium Stages
+2) Rate-Based Method
 
 
-First, let the goal be be to simulate an Absorption Column using Equilibrium Stages.  
-
-We will vary the gas flow while keeping all other parameters stable.  
+***Equilibrium Stages***  
+Example of Equilibrium Stage Implementation is shown in below code.  
+Gas flow is varied while keeping all other parameters stable.  
 
 For a single Vapor-Liquid Equilibrium Calculation (One Single Stage) the Class
 *VaporLiquidEquilibrium_Isothermal* or *VaporLiquidEquilibrium_Adiabatic* can be used as shown in below
@@ -722,15 +743,16 @@ plt.ylabel("NH3 Captured [%]")
 plt.show()
 ```
 
-Next, let the goal be to simulate and Absorption Column using Rate-Based Method. We then need to specify:
+***Rate-Based Method***    
+Simulating Absorption Column using Rate-Based Method is shown in below code. We then need to specify:
 - The Liquid Holdup
 - The Pressure Drop
 - The Heat Transfer between the Gas and Liquid
 - The Mass Transfer of the Volatile Species
 - The Heat of Absorption of the Volatile Species
 
-The Code Below show an example of how such an Column Could be Simulated.
-Note, the calculated Mass and Heat Transfer Coefficients are for illustration only, and is not in any way accurate.
+
+The calculated Mass and Heat Transfer Coefficients are for illustration only, and is not in any way accurate.
 
 
 ```python
@@ -851,7 +873,10 @@ absorber.add_mass_transfer_kmol_m3s(id="H2O(g) -> H2O(aq)",
                                     exothermic_heat_kJ_kmol=Mass_Transfer_H2O_kJ_kmol)
 ```
 
-Simulating Rate-Based Absorber
+With the above code the Absorber is Configured, and ready to be deployed.  
+In below example Air Flow at Absorber inlet is varied, while all other variables are kept constant.  
+A plot of the NH3 Capture rate as a function of Air Flow is then generated.  
+Profile plots along the height of the Absorber is available. In the below example the temperature profile is plotted for the highest Air Flow Rate.
 
 ```python
 N = 20
