@@ -352,6 +352,9 @@ plt.xlabel("CO2 Load")
 plt.ylabel("pH")
 plt.grid(True)
 ```
+<img width="569" height="432" alt="01" src="https://github.com/user-attachments/assets/f3f2ed7a-37ef-4fb6-923b-6ef17f24cf5d" />
+
+<img width="577" height="426" alt="02" src="https://github.com/user-attachments/assets/1ea35e03-d064-43f4-ab35-3ee569aa68fb" />
 
 With equilibrium concentrations calculated the vapor pressure of the volatile species can be estimated using
 the *get_specie_vapor_pressure_bara* method. Note that equilibrium must be calculated before trying to
@@ -367,6 +370,7 @@ plt.legend()
 plt.grid(True)
 plt.yscale("log")
 ```
+<img width="589" height="435" alt="03" src="https://github.com/user-attachments/assets/0812b219-21ab-4282-9aec-98e1c5aa36e6" />
 
 Heat of absorption is calculated using the Clausius–Clapeyron relation via the
 *get_heat_of_vaporization_kJ_kmol* method.
@@ -383,6 +387,7 @@ plt.ylabel("Heat of Vaporization [kJ/mol]")
 plt.legend()
 plt.grid(True)
 ```
+<img width="570" height="431" alt="04" src="https://github.com/user-attachments/assets/f456f121-fe5c-4469-997d-6bce6a49c1ed" />
 
 
 Reboiler can be modelled using a Flash Calculation via the *LiquidEquilibrium_QPFlash* method. Let’s say
@@ -417,6 +422,7 @@ plt.legend()
 
 plt.show()
 ```
+<img width="591" height="430" alt="05" src="https://github.com/user-attachments/assets/35c57308-ae2e-478e-a66a-ce68f82106c3" />
 
 
 ### 5.2 GasStream
@@ -501,6 +507,9 @@ plt.grid(True)
 plt.legend()
 plt.show()
 ```
+<img width="578" height="429" alt="06" src="https://github.com/user-attachments/assets/eda9d97f-e4d9-4e1f-affb-0595c024e22f" />
+
+<img width="572" height="432" alt="07" src="https://github.com/user-attachments/assets/9c9700b2-971d-4a37-b9c9-d2523e0c3e9e" />
 
 
 ### 5.3 Gas Liquid Contactors
@@ -745,6 +754,7 @@ plt.xlabel("Exhaust Gas Flow [Nm3/h]")
 plt.ylabel("NH3 Captured [%]")
 plt.show()
 ```
+<img width="582" height="429" alt="08" src="https://github.com/user-attachments/assets/a6be7faf-4360-46d6-91a9-56d99e91a5a6" />
 
 ***Rate-Based Method***    
 Example showing simulation of Absorption Column using Rate-Based Method is shown in below code. For such a simulation we need to specify:
@@ -953,6 +963,10 @@ plt.xlabel("Temperature [C]")
 plt.ylabel("Height [m]")
 plt.show()
 ```
+<img width="585" height="422" alt="09" src="https://github.com/user-attachments/assets/2a99f3c3-2036-4ab0-a9da-b692076afd5a" />
+
+<img width="565" height="431" alt="10" src="https://github.com/user-attachments/assets/52059a0a-57e5-48e8-9a7d-0cc25b27f3cd" />
+
 
 ## 6. Custom Reactors
 
