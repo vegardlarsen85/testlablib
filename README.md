@@ -1039,21 +1039,21 @@ In the remaining of the section the equilibrium constants are assumed to be with
 $K_{1}  \cdot w_{SO_2} \cdot w_{H_2O} = w_{HSO_3^-} \cdot w_{H^+}$  
 $K_{2}  \cdot w_{CO_2} \cdot w_{H_2O} = w_{HCO_3^-} \cdot w_{H^+}$  
 
-
 In total there are six species and two reactions.
 Defining the following vectors and matrices.  
 $\mathbf{w}=
 \left[
 \begin{matrix}
-w_0\\  w_1\\  w_2\\ w_3\\ w_4\\ w_5\\
+w_0\\\  w_1\\\  w_2\\\ w_3\\\ w_4\\\ w_5
 \end{matrix}
 \right]
 =
 \left[
 \begin{matrix}
-w_{SO_2}\\  w_{HSO_3^-}\\  w_{CO_2}\\ w_{HCO_3^-}\\ w_{H_2O}\\ w_{H^+}\\
+w_{SO_2}\\\  w_{HSO_3^-}\\\  w_{CO_2}\\\ w_{HCO_3^-}\\\ w_{H_2O}\\\ w_{H^+}
 \end{matrix}
-\right]$ $\ \ \ $ , 
+\right]$  
+
 $\mathbf{v}=
 \left[
 \begin{matrix}
@@ -1065,7 +1065,8 @@ $\mathbf{v}=
 1 & 1 \\
 \end{matrix}
 \right]
-$ $\ \ \ $ , 
+$  
+
 $\mathbf{R}=
 \left[
 \begin{matrix}
@@ -1098,8 +1099,8 @@ However, it is possible to calculate $\mathbf{A}$ automatically.
 Note, we are searching for four quantities $(b_i)$ that is constant when adjusting $dw_{\alpha}$ according to the formula $d\mathbf{w} = \mathbf{R} d\mathbf{r}$.  
 From below derivation we observe that if the four row vectors of the matrix $A_{i \alpha}$ is orthogonal to the two column vectors in the matrix $R_{\alpha u}$ the quantities $b_i$ become constants.  
 $b_i = A_{i \alpha} w_{\alpha}$  
-$db_i = A_{i \alpha} dw_{\alpha}$  $\ \ \ \ \ \ \ \ \ \ \ \ $,  $dw_{\alpha} = R_{\alpha u} \cdot dr_{u}$  
-$db_i = A_{i \alpha} R_{\alpha u} dr_u$ $\ \ \ \ \ \ $, $A_{i \alpha} R_{\alpha u} = 0$  
+$db_i = A_{i \alpha} dw_{\alpha}$  
+$db_i = A_{i \alpha} R_{\alpha u} dr_u$  
 $db_i = 0$  
 
 We are thus searching for a matrix A with the property $A_{i \alpha} R_{\alpha u} = 0$.  
@@ -1108,7 +1109,11 @@ In the below case Singular Value Decomposition is taken of the matrix $\mathbf{R
 The first two column vectors of $\mathbf{U}$ span the same space as $\mathbf{R}$ while the remaining vectors are orthogonal to $\mathbf{R}$.  
 The matrix $\mathbf{A}$ can thus be generated from the last four column vectors of $\mathbf{U}$.    
 $\mathbf{U},\mathbf{D},\mathbf{V}^T = SVD(\mathbf{R})$  
-$A_{i \alpha} = U_{\alpha, i+2}$  $\ \ \ \ \ \ \ \ \ \ \ \ \ \ $ , $\alpha \in \left\{ 0,1,2,3,4,5 \right\}$ $\ \ \ $ , $i \in \left\{ 0,1,2,3 \right\}$  
+$A_{i \alpha} = U_{\alpha, i+2}$
+
+Were,  
+$\alpha \in \left\{ 0,1,2,3,4,5 \right\}$  
+$i \in \left\{ 0,1,2,3 \right\}$  
 
 ---
 
