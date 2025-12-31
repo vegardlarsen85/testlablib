@@ -1014,3 +1014,343 @@ Similarly, for LiquidStreams, the following are stored as numerical values:
 - Mass Fractions
 - Mass Flow
 
+
+
+
+
+## 7. Numerical Methods
+
+In this section the algorithms used in the testlablib-code is derived and justified.  
+
+
+### 7.1 Equilibrium
+
+Consider SO2 Absorption into seawater, where the two reactions below occur in the liquid phase.  
+$SO_2 + H_2O \rightleftarrows HSO_3^- + H^+$  
+$CO_2 + H_2O \rightleftarrows HCO_3^- + H^+$  
+
+The equilibrium constants are typically w.r.t, molality for solutes and molar fraction for the solvent initially.  
+The activity coefficients is also not typically included in the constants.  
+$K_1 \left( \frac{\gamma_{SO_2} \gamma_{H_2O}}{\gamma_{HSO_3^-}\gamma_{H^+}} \right) \cdot m_{SO_2} \cdot x_{H_2O} = m_{HSO_3^-} \cdot m_{H^+}$  
+$K_2 \left( \frac{\gamma_{CO_2} \gamma_{H_2O}}{\gamma_{HCO_3^-}\gamma_{H^+}} \right) \cdot m_{CO_2} \cdot x_{H_2O} = m_{HCO_3^-} \cdot m_{H^+}$  
+
+
+In the remaining of the section the equilibrium constants are assumed to be with respect to the mass fractions, as shown below. Recalculating the original equilibrium constants above into the new ones below can be achieved using formulas from section 4.  
+$K_{1}  \cdot w_{SO_2} \cdot w_{H_2O} = w_{HSO_3^-} \cdot w_{H^+}$  
+$K_{2}  \cdot w_{CO_2} \cdot w_{H_2O} = w_{HCO_3^-} \cdot w_{H^+}$  
+
+
+In total there are six species and two reactions.
+Defining the following vectors and matrices.  
+$\mathbf{w}=
+\left[
+\begin{matrix}
+w_0\\  w_1\\  w_2\\ w_3\\ w_4\\ w_5\\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+w_{SO_2}\\  w_{HSO_3^-}\\  w_{CO_2}\\ w_{HCO_3^-}\\ w_{H_2O}\\ w_{H^+}\\
+\end{matrix}
+\right]$ $\ \ \ $ , 
+$\mathbf{v}=
+\left[
+\begin{matrix}
+-1 & 0 \\
+1 & 0 \\
+0 & -1 \\
+0 & 1 \\
+-1 & -1 \\
+1 & 1 \\
+\end{matrix}
+\right]
+$ $\ \ \ $ , 
+$\mathbf{R}=
+\left[
+\begin{matrix}
+-64 & 0 \\
+81 & 0 \\
+0 & -44 \\
+0 & 61 \\
+-18 & -18 \\
+1 & 1 \\
+\end{matrix}
+\right]
+$
+
+The vector $\mathbf{w}$ is the mass fractions.  
+The matrix $\mathbf{v}$ is generated from the stochiometric coefficients of the reactions.  
+The matrix $\mathbf{R}$ is equal to $\mathbf{v}$ but scaled with molar masses of the species via below formula.  
+Note that $\mathbf{v}$ is unitless, and consequently the unit of $\mathbf{R}$ is kg⁄kmol.  
+$R_{\alpha u} = M_{\alpha} \nu_{\alpha u}$  
+
+Let $dr_u$ be a vector representing the increase or decrease in the reactions and represents *kmol reaction per kg solution*.  
+A change in the mass fractions $(d \mathbf{w})$ caused by the reactions is then given by the following matrix product.  
+$dw_{\alpha} = R_{\alpha u} \cdot dr_{u}$  
+
+With 6 species in total and 2 reactions the next objective is to find 4 conserved quantities $(\mathbf{b})$ on the form.  
+$b_i = A_{i \alpha} w_{\alpha}$  
+
+Finding the matrix $\mathbf{A}$ could be done based on conservation of sulfur, carbon etc.  
+However, it is possible to calculate $\mathbf{A}$ automatically.  
+
+Note, we are searching for four quantities $(b_i)$ that is constant when adjusting $dw_{\alpha}$ according to the formula $d\mathbf{w} = \mathbf{R} d\mathbf{r}$.  
+From below derivation we observe that if the four row vectors of the matrix $A_{i \alpha}$ is orthogonal to the two column vectors in the matrix $R_{\alpha u}$ the quantities $b_i$ become constants.  
+$b_i = A_{i \alpha} w_{\alpha}$  
+$db_i = A_{i \alpha} dw_{\alpha}$  $\ \ \ \ \ \ \ \ \ \ \ \ $,  $dw_{\alpha} = R_{\alpha u} \cdot dr_{u}$  
+$db_i = A_{i \alpha} R_{\alpha u} dr_u$ $\ \ \ \ \ \ $, $A_{i \alpha} R_{\alpha u} = 0$  
+$db_i = 0$  
+
+We are thus searching for a matrix A with the property $A_{i \alpha} R_{\alpha u} = 0$.  
+To construct the matrix $\mathbf{A}$ several options are possible: most notably SVD and QR-Decomposition.  
+In the below case Singular Value Decomposition is taken of the matrix $\mathbf{R}$.  
+The first two column vectors of $\mathbf{U}$ span the same space as $\mathbf{R}$ while the remaining vectors are orthogonal to $\mathbf{R}$.  
+The matrix $\mathbf{A}$ can thus be generated from the last four column vectors of $\mathbf{U}$.    
+$\mathbf{U},\mathbf{D},\mathbf{V}^T = SVD(\mathbf{R})$  
+$A_{i \alpha} = U_{\alpha, i+2}$  $\ \ \ \ \ \ \ \ \ \ \ \ \ \ $ , $\alpha \in \left\{ 0,1,2,3,4,5 \right\}$ $\ \ \ $ , $i \in \left\{ 0,1,2,3 \right\}$  
+
+---
+
+---
+
+---
+
+
+**Newton's Method (I)**  
+Combining the two equilibrium constraints with the four conservation laws gives six equations which must be satisfied by adjusting the concentration of the six species.  
+$\mathbf{f} =
+\left[
+\begin{matrix}
+\ln K_1 + \ln w_{SO_2} + \ln w_{H_2O} - \ln w_{HSO_3^-} - \ln w_{H^+} \\
+\ln K_2 + \ln w_{CO_2} + \ln w_{H_2O} - \ln w_{HCO_3^-} - \ln w_{H^+} \\
+A_{0 \alpha} w_{\alpha} - b_{0,init} \\
+A_{1 \alpha} w_{\alpha} - b_{1,init} \\
+A_{2 \alpha} w_{\alpha} - b_{2,init} \\
+A_{3 \alpha} w_{\alpha} - b_{3,init} \\
+\end{matrix}
+\right]$  
+
+Partial derivatives with respect to mass fraction is straight forward to calculate if the equilibrium constants are assumed to be true constants.  
+$\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
+\left[
+\begin{matrix}
+\frac{\partial f_0}{\partial w_0} &
+\frac{\partial f_0}{\partial w_1} &
+\frac{\partial f_0}{\partial w_2} &
+\frac{\partial f_0}{\partial w_3} &
+\frac{\partial f_0}{\partial w_4} &
+\frac{\partial f_0}{\partial w_5} \\
+\frac{\partial f_1}{\partial w_0} &
+\frac{\partial f_1}{\partial w_1} &
+\frac{\partial f_1}{\partial w_2} &
+\frac{\partial f_1}{\partial w_3} &
+\frac{\partial f_1}{\partial w_4} &
+\frac{\partial f_1}{\partial w_5} \\
+A_{00} & A_{01} & A_{02} & A_{03} & A_{04} & A_{05} \\
+A_{10} & A_{11} & A_{12} & A_{13} & A_{14} & A_{15} \\
+A_{20} & A_{21} & A_{22} & A_{23} & A_{24} & A_{25} \\
+A_{30} & A_{31} & A_{32} & A_{33} & A_{34} & A_{35} \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+\frac{1}{w_0} &
+-\frac{1}{w_1} &
+0 &
+0 &
+\frac{1}{w_4} &
+-\frac{1}{w_5} \\
+0 &
+0 &
+\frac{1}{w_2} &
+-\frac{1}{w_3} &
+\frac{1}{w_4} &
+-\frac{1}{w_5} \\
+A_{00} & A_{01} & A_{02} & A_{03} & A_{04} & A_{05} \\
+A_{10} & A_{11} & A_{12} & A_{13} & A_{14} & A_{15} \\
+A_{20} & A_{21} & A_{22} & A_{23} & A_{24} & A_{25} \\
+A_{30} & A_{31} & A_{32} & A_{33} & A_{34} & A_{35} \\
+\end{matrix}
+\right]$
+
+***Pseudocode***  
+$b_{i,init} = A_{i \alpha} w_{\alpha}$  
+$\epsilon \approx 10^{-16}$  
+$lr \approx 0.75$  
+*Repeat Until Convergence*  
+--- *Calculate $\mathbf{K}$*  
+--- *Calculate* $\mathbf{f}$  
+--- *Calculate* $\frac{\partial \mathbf{f}}{\partial \mathbf{w}}$  
+--- $\Delta w_{\alpha} = - lr \cdot \left( \frac{\partial f_{\alpha}}{\partial w_{\beta}} \right)^{-1} f_{\beta}$  
+--- $w_{\alpha} = \max \{ \epsilon, w_{\alpha} + \Delta w_{\alpha}  \}$  
+
+
+---
+
+---
+
+---
+
+**Newton's Method (II)**  
+In the above case the most resource demanding step is to invert the 6x6 matrix at every iteration.
+The Algorithm can be speeded up by making some adjustments such that only inversion of a 2x2 matrix is necessary.  
+
+To achieve this the function $\mathbf{f}$ is redefined as below.  
+$\mathbf{f} =
+\left[
+\begin{matrix}
+\ln K_1 + \ln w_{SO_2} + \ln w_{H_2O} - \ln w_{HSO_3^-} - \ln w_{H^+} \\
+\ln K_2 + \ln w_{CO_2} + \ln w_{H_2O} - \ln w_{HCO_3^-} - \ln w_{H^+} \\
+\end{matrix}
+\right]$  
+
+The Update Rule is Obtained by using Chain Rule. Note that the Matrix that is inverted is 2x2.  
+$\Delta w_{\alpha} = R_{\alpha u} \Delta r_u \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ , \Delta r_u = -lr \cdot \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  
+$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  $\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $, $\frac{\partial f_u}{\partial r_v} = \frac{\partial f_u}{\partial w_{\alpha}} \frac{\partial w_{\alpha}}{\partial r_v}$  
+$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} \frac{\partial w_{\beta}}{\partial r_v} \right)^+ f_v$  $\ \ \ \ \ \ \ \ $ , $\frac{\partial w_{\alpha}}{\partial r_v} = R_{\alpha v}$  
+$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} R_{\beta v} \right)^+ f_v$  
+
+The downside by making this update is that the step size must be reduced such that it doesn’t try to impose negative values.
+This is achieved by introducing the parameter $\tau$.
+Let $w_{\alpha}$ be the current mass fractions and  $\Delta w_{\alpha}$ the requested update from Newton’s Method.
+τ is then calculated via the following steps.  
+$\tau_{\alpha} = - w_{\alpha} / \Delta w_{\alpha}$  
+$\tau_{\alpha} = 1 \cdot (\tau_{\alpha} < 0) + \tau_{\alpha} (\tau_{\alpha} > 0)$  
+$\tau = \min_{\alpha} \tau_{\alpha}$  
+$\tau = \min \{ \tau ,1 \}$  
+
+
+In addition, the mass fractions must initially obey the conservation laws as the update rule only can update along the subspace;   
+$\Delta w_{\alpha} = R_{\alpha u} \cdot \Delta r_u$  
+
+***Pseudocode***  
+*Repeat Until Convergence*  
+--- *Calculate* $\mathbf{K}$  
+--- *Calculate* $\mathbf{f}$  
+--- *Calculate* $\frac{\partial \mathbf{f}}{\partial \mathbf{w}}$  
+--- $\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} R_{\beta v} \right)^+ f_v$  
+--- *Calculate* $\tau$  
+--- $w_{\alpha} = w_{\alpha} + \tau \cdot \Delta w_{\alpha} $  
+
+
+
+---
+
+---
+
+---
+
+***First Order Taylor Expansion***  
+The isothermal equilibrium concentration is a state variable depending on the conserved quantities $\mathbf{b}$ and the temperature $T$,
+were $\mathbf{b}$ is defined using the equation showed previous in this chapter.  
+$w_{eq,\alpha} = f \left( \mathbf{b}, T \right)$  
+
+In the contrary, the adiabatic equilibrium is not a state variable of $\mathbf{b}$ and $T$ as the initial concentration of all species must be known to properly calculate the exothermic heat from the reactions.
+
+Anyway, back to the isothermal case; If the equilibrium concentrations are already found for a point $(\mathbf{b},T)$ the equilibrium concentration at a nearby point $(\mathbf{b'},T')$ can be approximated using First Order Taylor Expansion.  
+$w'_{eq,\alpha} = w_{eq,\alpha} + \frac{\partial w_{eq,\alpha}}{\partial b_i} \left( b'_i - b_i\right) + \frac{\partial w_{eq,\alpha}}{\partial T} \left(T' - T \right)$  
+
+To calculate Taylor Expansion the sensitivity matrices with respect to $\mathbf{b}$ and $T$ must be calculated.
+The Objective Function $(\mathbf{f})$ shown below is the easiest to use for this case.
+The equilibrium concentrations at point $(\mathbf{b},T)$ is assumed to be known and denoted by $w_{eq,\alpha}$.
+Since the mass fractions are at equilibrium the objective functions $(\mathbf{f})$ are initially zero.
+The temperature affects the equilibrium concentrations via its influence on the equilibrium constants.
+The influence of a small perturbation $(d\mathbf{b}, dT)$ on the objective functions are shown in $\mathbf{f'}$.  
+
+
+$\mathbf{f} =
+\left[
+\begin{matrix}
+\ln K_1 + \ln w_{eq,SO_2} + \ln w_{eq,H_2O} - \ln w_{eq,HSO_3^-} - \ln w_{eq,H^+} \\
+\ln K_2 + \ln w_{eq,CO_2} + \ln w_{eq,H_2O} - \ln w_{eq,HCO_3^-} - \ln w_{eq,H^+} \\
+A_{0 \alpha} w_{eq,\alpha} - b_{0,init} \\
+A_{1 \alpha} w_{eq,\alpha} - b_{1,init} \\
+A_{2 \alpha} w_{eq,\alpha} - b_{2,init} \\
+A_{3 \alpha} w_{eq,\alpha} - b_{3,init} \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{matrix}
+\right]$  
+
+$\mathbf{f'} =
+\left[
+\begin{matrix}
+\frac{1}{K_1} \frac{\partial K_1}{\partial T} dT \\
+\frac{1}{K_2} \frac{\partial K_2}{\partial T} dT \\
+-db_0 \\
+-db_1 \\
+-db_2 \\
+-db_3 \\
+\end{matrix}
+\right]$  
+
+The partial derivatives $\partial \mathbf{f} / \partial \mathbf{w}$ (and therefore also the Hessian) only depend on $\mathbf{w}$ and have no direct dependence on $\mathbf{b}$ or $T$.
+The Hessian at the point $(\mathbf{b'},T')$ will therefore be equal to the Hessian at point $\left( \mathbf{b}, T \right)$ as the mass fractions $(\mathbf{w})$ are left unchanged (for now).  
+
+$\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
+\frac{\partial \mathbf{f'}}{\partial \mathbf{w}} =
+\left[
+\begin{matrix}
+\frac{\partial f_0}{\partial w_0} &
+\frac{\partial f_0}{\partial w_1} &
+\frac{\partial f_0}{\partial w_2} &
+\frac{\partial f_0}{\partial w_3} &
+\frac{\partial f_0}{\partial w_4} &
+\frac{\partial f_0}{\partial w_5} \\
+\frac{\partial f_1}{\partial w_0} &
+\frac{\partial f_1}{\partial w_1} &
+\frac{\partial f_1}{\partial w_2} &
+\frac{\partial f_1}{\partial w_3} &
+\frac{\partial f_1}{\partial w_4} &
+\frac{\partial f_1}{\partial w_5} \\
+A_{00} & A_{01} & A_{02} & A_{03} & A_{04} & A_{05} \\
+A_{10} & A_{11} & A_{12} & A_{13} & A_{14} & A_{15} \\
+A_{20} & A_{21} & A_{22} & A_{23} & A_{24} & A_{25} \\
+A_{30} & A_{31} & A_{32} & A_{33} & A_{34} & A_{35} \\
+\end{matrix}
+\right]$
+
+Assuming we are at point (b,T) and make a perturbation (db,dT). Updating the mass fractions to be at equilibrium at the new point could be done using Newton’s Method, in which case the below expression is used.  
+$dw_{\alpha} = - H'_{\alpha \beta} \cdot f'_{\beta}$ $\ \ \ \ \ \ \ \ \ \ \ $ , $H'_{\alpha \beta} = H_{\alpha \beta}$  
+$dw_{\alpha} = - H_{\alpha \beta} \cdot f'_{\beta}$  
+
+Expanding into matrix form  
+$\left[
+\begin{matrix}
+dw_0 \\ dw_1 \\ dw_2 \\ dw_3 \\ dw_4 \\ dw_5 \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+H_{00} & H_{01} & H_{02} & H_{03} & H_{04} & H_{05} \\
+H_{10} & H_{11} & H_{12} & H_{13} & H_{14} & H_{15} \\
+H_{20} & H_{21} & H_{22} & H_{23} & H_{24} & H_{25} \\
+H_{30} & H_{31} & H_{32} & H_{33} & H_{34} & H_{35} \\
+H_{40} & H_{41} & H_{42} & H_{43} & H_{44} & H_{45} \\
+H_{50} & H_{51} & H_{52} & H_{53} & H_{54} & H_{55} \\
+\end{matrix}
+\right]$  
+
+From the above equation one observes that the sensitivity matrices can be extracted from the Hessian.  
+$\frac{\partial w_{\alpha}}{\partial T} = - H_{\alpha u} \left( \frac{1}{K_u} \frac{\partial K_u}{\partial T} \right)$  
+$\frac{\partial w_{\alpha}}{\partial b_{i}} = H_{\alpha, i+2}$  
+
+With the above equations we are in a position to sketch a Nearest Neighbour inspired algorithm as used in the article *doi.org/10.48550/arXiv.1708.04825*;  
+
+For every point where the equilibrium concentration $\left( \mathbf{w} \right)$ is found the feature vector $(\mathbf{b},T)$ and the partial derivatives $\left( \partial \mathbf{w}/\partial \mathbf{b} , \partial \mathbf{w} / \partial T \right)$ is stored into a database.
+To calculate the equilibrium concentration at a new point $(\mathbf{b'}, T')$ one first finds the point closest in the database, and then extrapolate using First Order Taylor Expansion.  
+
+
+

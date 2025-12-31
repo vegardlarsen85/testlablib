@@ -39,6 +39,7 @@
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Content/PIDController.content" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.default.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nesset/twincat3_example/twincat/hmi/Server/TcHmiSqliteHistorize/TcHmiSqliteHistorize.Config.remote.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testlablib_com/user_guide/GasStream.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testlablib_com/user_guide/GasStream.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testlablib_com/web_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testlablib_com/web_page.py" afterDir="false" />
@@ -103,7 +104,7 @@
       <recent name="C:\Users\veglar129\Source\Repos\nesset" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sanity_check">
+  <component name="RunManager" selected="Python.sims_2">
     <configuration name="generate_alarms" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="testlablib" />
       <option name="ENV_FILES" value="" />
@@ -170,28 +171,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="sims_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Source" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../testlablib_sims" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../testlablib_sims/sims_2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="sims" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="nesset" />
       <option name="ENV_FILES" value="" />
@@ -206,6 +185,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="C:\Users\veglar129\Source\Repos\testlablib_sims\sims.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sims_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Source" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../testlablib_sims" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../testlablib_sims/sims_2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -238,9 +239,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sanity_check" />
         <item itemvalue="Python.sims_2" />
         <item itemvalue="Python.sims (1)" />
+        <item itemvalue="Python.sanity_check" />
         <item itemvalue="Python.generate_alarms" />
         <item itemvalue="Python.web_page" />
       </list>
