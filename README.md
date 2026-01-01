@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 # testlablib
 
 ## 1. About
@@ -1222,10 +1224,20 @@ To achieve this the function $\mathbf{f}$ is redefined as below.
 \right]
 ```  
 
-The Update Rule is Obtained by using Chain Rule. Note that the Matrix that is inverted is 2x2.  
-$\Delta w_{\alpha} = R_{\alpha u} \Delta r_u \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ , \Delta r_u = -lr \cdot \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  
-$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  $\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ $, $\frac{\partial f_u}{\partial r_v} = \frac{\partial f_u}{\partial w_{\alpha}} \frac{\partial w_{\alpha}}{\partial r_v}$  
-$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} \frac{\partial w_{\beta}}{\partial r_v} \right)^+ f_v$  $\ \ \ \ \ \ \ \ $ , $\frac{\partial w_{\alpha}}{\partial r_v} = R_{\alpha v}$  
+We are looking to speed up the algorithm by reducing the dimensionality from 6 to 2 dimensions (6 species and 2 reactions in this problem).  
+We will therefore only update along the 2-dimensional subspace given by the vector $\Delta \mathbf{r}$.  
+$\Delta w_{\alpha} = R_{\alpha u} \Delta r_u$  
+
+The 2-dimensional vector $\Delta \mathbf{r}$ is updated using Newton's Method.  
+$\Delta r_u = -lr \cdot \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  
+
+Obtaining the change in mass fraction can be made by matrix multiplication with the matrix $\mathbf{R}$.  
+$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$
+
+Applying Chain Rule  
+$\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} \frac{\partial w_{\beta}}{\partial r_v} \right)^+ f_v$  
+
+Final Update Rule  
 $\Delta w_{\alpha} = - lr \cdot R_{\alpha u} \left( \frac{\partial f_u}{\partial w_{\beta}} R_{\beta v} \right)^+ f_v$  
 
 The downside by making this update is that the step size must be reduced such that it doesn’t try to impose negative values.
@@ -1348,13 +1360,12 @@ $dw_{\alpha} = - H_{\alpha \beta} \cdot f_{\beta}'$
 
 Expanding into matrix form  
 ```math
-\begin{alignat*}{1}
   \left[
 \begin{matrix}
 dw_0\\ dw_1\\ dw_2\\ dw_3\\ dw_4\\ dw_5\\
 \end{matrix}
 \right] =
-\left[
+- \left[
 \begin{matrix}
 H_{00} & H_{01} & H_{02} & H_{03} & H_{04} & H_{05}\\\
 H_{10} & H_{11} & H_{12} & H_{13} & H_{14} & H_{15}\\\
@@ -1364,7 +1375,16 @@ H_{40} & H_{41} & H_{42} & H_{43} & H_{44} & H_{45}\\\
 H_{50} & H_{51} & H_{52} & H_{53} & H_{54} & H_{55}\\\
 \end{matrix}
 \right]
-\end{alignat*}
+\left[
+\begin{matrix}
+\frac{1}{K_1} \frac{\partial K_1}{\partial T} dT\\
+\frac{1}{K_2} \frac{\partial K_2}{\partial T} dT\\
+-db_0\\
+-db_1\\
+-db_2\\
+-db_3\\
+\end{matrix}
+\right]
 ```
 
 From the above equation one observes that the sensitivity matrices can be extracted from the Hessian.  
