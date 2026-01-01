@@ -1041,7 +1041,8 @@ $K_{2}  \cdot w_{CO_2} \cdot w_{H_2O} = w_{HCO_3^-} \cdot w_{H^+}$
 
 In total there are six species and two reactions.
 Defining the following vectors and matrices.  
-$\mathbf{w}=
+```math
+\mathbf{w}=
 \left[
 \begin{matrix}
 w_0\\\  w_1\\\  w_2\\\ w_3\\\ w_4\\\ w_5
@@ -1052,9 +1053,11 @@ w_0\\\  w_1\\\  w_2\\\ w_3\\\ w_4\\\ w_5
 \begin{matrix}
 w_{SO_2}\\\  w_{HSO_3^-}\\\  w_{CO_2}\\\ w_{HCO_3^-}\\\ w_{H_2O}\\\ w_{H^+}
 \end{matrix}
-\right]$  
+\right]
+```  
 
-$\mathbf{v}=
+```math
+\mathbf{v}=
 \left[
 \begin{matrix}
 -1 & 0 \\
@@ -1065,9 +1068,10 @@ $\mathbf{v}=
 1 & 1 \\
 \end{matrix}
 \right]
-$  
+```  
 
-$\mathbf{R}=
+```math
+\mathbf{R}=
 \left[
 \begin{matrix}
 -64 & 0 \\
@@ -1078,7 +1082,7 @@ $\mathbf{R}=
 1 & 1 \\
 \end{matrix}
 \right]
-$
+```  
 
 The vector $\mathbf{w}$ is the mass fractions.  
 The matrix $\mathbf{v}$ is generated from the stochiometric coefficients of the reactions.  
@@ -1112,8 +1116,9 @@ $\mathbf{U},\mathbf{D},\mathbf{V}^T = SVD(\mathbf{R})$
 $A_{i \alpha} = U_{\alpha, i+2}$
 
 Were,  
-$\alpha \in \left\{ 0,1,2,3,4,5 \right\}$  
-$i \in \left\{ 0,1,2,3 \right\}$  
+$\alpha \in \{ 0,1,2,3,4,5 \}$  
+$i \in \{ 0,1,2,3 \}$  
+
 
 ---
 
@@ -1124,7 +1129,8 @@ $i \in \left\{ 0,1,2,3 \right\}$
 
 **Newton's Method (I)**  
 Combining the two equilibrium constraints with the four conservation laws gives six equations which must be satisfied by adjusting the concentration of the six species.  
-$\mathbf{f} =
+```math
+\mathbf{f} =
 \left[
 \begin{matrix}
 \ln K_1 + \ln w_{SO_2} + \ln w_{H_2O} - \ln w_{HSO_3^-} - \ln w_{H^+} \\
@@ -1134,10 +1140,12 @@ A_{1 \alpha} w_{\alpha} - b_{1,init} \\
 A_{2 \alpha} w_{\alpha} - b_{2,init} \\
 A_{3 \alpha} w_{\alpha} - b_{3,init} \\
 \end{matrix}
-\right]$  
+\right]
+```    
 
 Partial derivatives with respect to mass fraction is straight forward to calculate if the equilibrium constants are assumed to be true constants.  
-$\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
+```math
+\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
 \left[
 \begin{matrix}
 \frac{\partial f_0}{\partial w_0} &
@@ -1178,7 +1186,8 @@ A_{10} & A_{11} & A_{12} & A_{13} & A_{14} & A_{15} \\
 A_{20} & A_{21} & A_{22} & A_{23} & A_{24} & A_{25} \\
 A_{30} & A_{31} & A_{32} & A_{33} & A_{34} & A_{35} \\
 \end{matrix}
-\right]$
+\right]
+```  
 
 ***Pseudocode***  
 $b_{i,init} = A_{i \alpha} w_{\alpha}$  
@@ -1203,13 +1212,15 @@ In the above case the most resource demanding step is to invert the 6x6 matrix a
 The Algorithm can be speeded up by making some adjustments such that only inversion of a 2x2 matrix is necessary.  
 
 To achieve this the function $\mathbf{f}$ is redefined as below.  
-$\mathbf{f} =
+```math
+\mathbf{f} =
 \left[
 \begin{matrix}
 \ln K_1 + \ln w_{SO_2} + \ln w_{H_2O} - \ln w_{HSO_3^-} - \ln w_{H^+} \\
 \ln K_2 + \ln w_{CO_2} + \ln w_{H_2O} - \ln w_{HCO_3^-} - \ln w_{H^+} \\
 \end{matrix}
-\right]$  
+\right]
+```  
 
 The Update Rule is Obtained by using Chain Rule. Note that the Matrix that is inverted is 2x2.  
 $\Delta w_{\alpha} = R_{\alpha u} \Delta r_u \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ , \Delta r_u = -lr \cdot \left( \frac{\partial f_u}{\partial r_v} \right)^+ f_v$  
@@ -1264,8 +1275,8 @@ Since the mass fractions are at equilibrium the objective functions $(\mathbf{f}
 The temperature affects the equilibrium concentrations via its influence on the equilibrium constants.
 The influence of a small perturbation $(d\mathbf{b}, dT)$ on the objective functions are shown in $\mathbf{f'}$.  
 
-
-$\mathbf{f} =
+```math
+\mathbf{f} =
 \left[
 \begin{matrix}
 \ln K_1 + \ln w_{eq,SO_2} + \ln w_{eq,H_2O} - \ln w_{eq,HSO_3^-} - \ln w_{eq,H^+} \\
@@ -1286,9 +1297,11 @@ A_{3 \alpha} w_{eq,\alpha} - b_{3,init} \\
 0 \\
 0 \\
 \end{matrix}
-\right]$  
+\right]
+```  
 
-$\mathbf{f'} =
+```math
+\mathbf{f'} =
 \left[
 \begin{matrix}
 \frac{1}{K_1} \frac{\partial K_1}{\partial T} dT \\
@@ -1298,12 +1311,14 @@ $\mathbf{f'} =
 -db_2 \\
 -db_3 \\
 \end{matrix}
-\right]$  
+\right]
+```  
 
 The partial derivatives $\partial \mathbf{f} / \partial \mathbf{w}$ (and therefore also the Hessian) only depend on $\mathbf{w}$ and have no direct dependence on $\mathbf{b}$ or $T$.
 The Hessian at the point $(\mathbf{b'},T')$ will therefore be equal to the Hessian at point $\left( \mathbf{b}, T \right)$ as the mass fractions $(\mathbf{w})$ are left unchanged (for now).  
 
-$\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
+```math
+\frac{\partial \mathbf{f}}{\partial \mathbf{w}} =
 \frac{\partial \mathbf{f'}}{\partial \mathbf{w}} =
 \left[
 \begin{matrix}
@@ -1324,29 +1339,33 @@ A_{10} & A_{11} & A_{12} & A_{13} & A_{14} & A_{15} \\
 A_{20} & A_{21} & A_{22} & A_{23} & A_{24} & A_{25} \\
 A_{30} & A_{31} & A_{32} & A_{33} & A_{34} & A_{35} \\
 \end{matrix}
-\right]$
+\right]
+```
 
 Assuming we are at point (b,T) and make a perturbation (db,dT). Updating the mass fractions to be at equilibrium at the new point could be done using Newton’s Method, in which case the below expression is used.  
-$dw_{\alpha} = - H'_{\alpha \beta} \cdot f'_{\beta}$ $\ \ \ \ \ \ \ \ \ \ \ $ , $H'_{\alpha \beta} = H_{\alpha \beta}$  
-$dw_{\alpha} = - H_{\alpha \beta} \cdot f'_{\beta}$  
+$dw_{\alpha} = - H_{\alpha \beta}' \cdot f_{\beta}'$  
+$dw_{\alpha} = - H_{\alpha \beta} \cdot f_{\beta}'$  
 
 Expanding into matrix form  
-$\left[
+```math
+\begin{alignat*}{1}
+  \left[
 \begin{matrix}
-dw_0 \\ dw_1 \\ dw_2 \\ dw_3 \\ dw_4 \\ dw_5 \\
+dw_0\\ dw_1\\ dw_2\\ dw_3\\ dw_4\\ dw_5\\
 \end{matrix}
-\right]
-=
+\right] =
 \left[
 \begin{matrix}
-H_{00} & H_{01} & H_{02} & H_{03} & H_{04} & H_{05} \\
-H_{10} & H_{11} & H_{12} & H_{13} & H_{14} & H_{15} \\
-H_{20} & H_{21} & H_{22} & H_{23} & H_{24} & H_{25} \\
-H_{30} & H_{31} & H_{32} & H_{33} & H_{34} & H_{35} \\
-H_{40} & H_{41} & H_{42} & H_{43} & H_{44} & H_{45} \\
-H_{50} & H_{51} & H_{52} & H_{53} & H_{54} & H_{55} \\
+H_{00} & H_{01} & H_{02} & H_{03} & H_{04} & H_{05}\\\
+H_{10} & H_{11} & H_{12} & H_{13} & H_{14} & H_{15}\\\
+H_{20} & H_{21} & H_{22} & H_{23} & H_{24} & H_{25}\\\
+H_{30} & H_{31} & H_{32} & H_{33} & H_{34} & H_{35}\\\
+H_{40} & H_{41} & H_{42} & H_{43} & H_{44} & H_{45}\\\
+H_{50} & H_{51} & H_{52} & H_{53} & H_{54} & H_{55}\\\
 \end{matrix}
-\right]$  
+\right]
+\end{alignat*}
+```
 
 From the above equation one observes that the sensitivity matrices can be extracted from the Hessian.  
 $\frac{\partial w_{\alpha}}{\partial T} = - H_{\alpha u} \left( \frac{1}{K_u} \frac{\partial K_u}{\partial T} \right)$  
