@@ -1278,7 +1278,7 @@ $w_{eq,\alpha} = f \left( \mathbf{b}, T \right)$
 In the contrary, the adiabatic equilibrium is not a state variable of $\mathbf{b}$ and $T$ as the initial concentration of all species must be known to properly calculate the exothermic heat from the reactions.
 
 Anyway, back to the isothermal case; If the equilibrium concentrations are already found for a point $(\mathbf{b},T)$ the equilibrium concentration at a nearby point $(\mathbf{b'},T')$ can be approximated using First Order Taylor Expansion.  
-$w'_{eq,\alpha} = w_{eq,\alpha} + \frac{\partial w_{eq,\alpha}}{\partial b_i} \left( b'_i - b_i\right) + \frac{\partial w_{eq,\alpha}}{\partial T} \left(T' - T \right)$  
+$w_{eq,\alpha}' = w_{eq,\alpha} + \frac{\partial w_{eq,\alpha}}{\partial b_i} \left( b_i' - b_i\right) + \frac{\partial w_{eq,\alpha}}{\partial T} \left(T' - T \right)$  
 
 To calculate Taylor Expansion the sensitivity matrices with respect to $\mathbf{b}$ and $T$ must be calculated.
 The Objective Function $(\mathbf{f})$ shown below is the easiest to use for this case.
